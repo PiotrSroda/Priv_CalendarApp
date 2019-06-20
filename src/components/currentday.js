@@ -19,9 +19,9 @@ const CurrentDay = props => {
       .format("LT");
     time = [...time, minutes];
   }
-  console.log(occupiedHour);
 
   const renderTime = time.map((t, k) => {
+    console.log(t, k);
     if (t === occupiedHour)
       return (
         <div key={k} className="timesheet_item_unclickable">
