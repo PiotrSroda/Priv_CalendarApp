@@ -2,32 +2,41 @@ import React from "react";
 import moment from "moment";
 
 const CurrentDay = props => {
+  let occupiedHour = moment()
+    .hour(`${props.occupied}`)
+    .minutes(0)
+    .format("LT");
   let date = moment(props.day).format("ll");
   let time = [];
-  for (let i = 9; i <= 21; i += 1) {
-    let hrs = moment(props.day).add(i, "hours");
-    for (let z = 0; z <= 45; z += 15) {
-      let hrsmints = moment(hrs)
-        .add(z, "minutes")
-        .format("LT");
-      time = [...time, hrsmints];
-    }
+  let startHour = props.startHour * 60;
+  let endHour = props.endHour * 60;
+  let step = props.step;
+  for (let i = startHour; i <= endHour; i += step) {
+    let minutes = moment(props.day)
+      .add(i, "minutes")
+      .format("LT");
+    time = [...time, minutes];
   }
+  console.log(occupiedHour);
 
   const renderTime = time.map((t, k) => {
+    if (t === occupiedHour) return <div>OCCUPIED</div>;
     return (
       <div key={k} className="timesheet_item">
         {t}
       </div>
     );
   });
-  console.log(time);
-  return (
-    <div>
-      <div>{date}</div>
-      <div className="timesheet_container">{renderTime}</div>
-    </div>
-  );
+  if (props.day) {
+    return (
+      <div>
+        <div>{date}</div>
+        <div className="timesheet_container">{renderTime}</div>
+      </div>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default CurrentDay;

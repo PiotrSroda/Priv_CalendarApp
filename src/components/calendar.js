@@ -5,7 +5,7 @@ import "../App.css";
 
 class Calendar extends React.Component {
   state = {
-    day: new Date()
+    day: null
   };
 
   onClick = day => this.setState({ day });
@@ -15,7 +15,13 @@ class Calendar extends React.Component {
       <div className="calendar_container">
         <div className="calendar">
           <Cal value={this.state.day} onClickDay={this.onClick} />
-          <CurrentDay day={this.state.day} />
+          <CurrentDay
+            day={this.state.day}
+            startHour={9}
+            endHour={22}
+            step={15}
+            occupied={15}
+          />
         </div>
       </div>
     );
