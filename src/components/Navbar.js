@@ -10,6 +10,9 @@ const Navbar = () => {
       <Link to="/calendar" className="item">
         Calendar
       </Link>
+      <Link to="/dashboard" className="item">
+        Dashboard
+      </Link>
     </div>
   );
 };
