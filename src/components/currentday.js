@@ -1,10 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
+import { addTime } from "../actions";
 import moment from "moment";
+import _ from "lodash";
 
 const CurrentDay = props => {
   let occupiedHour = moment()
-    .hour(`${props.occupied}`)
-    .minutes(0)
+    .hour(`${props.occupied.hours}`)
+    .minutes(`${props.occupied.minutes}`)
     .format("LT");
 
   let date = moment(props.day).format("ll");
@@ -18,18 +21,33 @@ const CurrentDay = props => {
       .add(i, "minutes")
       .format("LT");
     time = [...time, minutes];
+    console.log(occupiedHour);
   }
 
   const renderTime = time.map((t, k) => {
-    console.log(t, k);
-    if (t === occupiedHour)
+    if (t === _.find(occupiedHour))
       return (
         <div key={k} className="timesheet_item_unclickable">
           {t}
         </div>
       );
     return (
-      <div key={k} className="timesheet_item">
+      <div
+        key={k}
+        className="timesheet_item"
+        onClick={() =>
+          props.addTime(
+            moment()
+              .hour(`${t}`)
+              .minutes(0)
+              .format("LT"),
+            moment()
+              .hour(0)
+              .minutes(`${t}`)
+              .format("LT")
+          )
+        }
+      >
         {t}
       </div>
     );
@@ -46,4 +64,11 @@ const CurrentDay = props => {
   }
 };
 
-export default CurrentDay;
+const mapStateToProps = state => {
+  return { occupied: state.occupied };
+};
+
+export default connect(
+  mapStateToProps,
+  { addTime }
+)(CurrentDay);

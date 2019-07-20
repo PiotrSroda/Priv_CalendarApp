@@ -1,9 +1,9 @@
 import React from "react";
 import Cal from "react-calendar";
-import CurrentDay from "./currentday";
+import CurrentDay from "./Currentday";
 import "../App.css";
 
-class Calendar extends React.Component {
+class Scheduler extends React.Component {
   state = {
     day: null
   };
@@ -12,8 +12,8 @@ class Calendar extends React.Component {
 
   render() {
     return (
-      <div className="calendar_container">
-        <div className="calendar">
+      <div>
+        <div>
           <Cal value={this.state.day} onClickDay={this.onClick} />
           <CurrentDay
             day={this.state.day}
@@ -28,4 +28,4 @@ class Calendar extends React.Component {
   }
 }
 
-export default Calendar;
+export default Scheduler;
