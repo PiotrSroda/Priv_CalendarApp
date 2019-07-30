@@ -1,46 +1,73 @@
 import React from "react";
+import { connect } from "react-redux";
+import { addTime, hideModal } from "../actions";
 import ReactModal from "react-modal";
 import Scheduler from "./Scheduler";
 
 class CalendarModal extends React.Component {
-  state = {
-    showModal: null
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.isOpen !== prevState.showModal) {
-      this.setState({ showModal: this.props.isOpen });
-    }
+    this.handleOnSubmit = this.handleOnSubmit.bind(this);
   }
 
-  handleCloseModal() {
-    this.setState({ showModal: false });
+  handleOnSubmit(e) {
+    e.preventDefault();
+    this.props.addTime(
+      e.target[0].value,
+      e.target[1].value,
+      e.target[2].value,
+      e.target[3].value
+    );
+    this.props.hideModal();
   }
 
   render() {
     return (
       <ReactModal
-        isOpen={this.state.showModal}
-        onRequestClose={() => this.handleCloseModal()}
-        className="ui standard modal visible active"
+        isOpen={this.props.showModal}
+        onRequestClose={this.props.hideModal}
+        ariaHideApp={false}
+        className="ui container standard modal visible active "
+        style={{
+          content: {
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)"
+          }
+        }}
       >
-        <div className="ui input">
+        <div className="button-container">
           <button
-            className="ui button primary"
-            onClick={() => this.handleCloseModal()}
+            className="ui button primary left-align"
+            onClick={this.props.hideModal}
           >
             X
           </button>
         </div>
-        <form className="form ui">
-          <input />
-          <input />
-          <input />
-          <Scheduler />
+        <form className="ui form" onSubmit={this.handleOnSubmit}>
+          <input type="text" label="Title" placeholder="Title" />
+          <input type="time" label="Start Time" />
+          <input type="time" label="End Time" />
+          <select name="step">
+            <option value="15">15 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="45">45 minutes</option>
+            <option value="60">60 minutes</option>
+          </select>
+          <button className="ui button primary">SUBMIT ME </button>
         </form>
       </ReactModal>
     );
   }
 }
 
-export default CalendarModal;
+const mapStateToProps = state => {
+  return { showModal: state.showModal };
+};
+
+export default connect(
+  mapStateToProps,
+  { addTime, hideModal }
+)(CalendarModal);

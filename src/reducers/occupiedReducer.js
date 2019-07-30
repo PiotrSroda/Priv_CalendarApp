@@ -6,8 +6,10 @@ export const occupiedReducer = (state = [], action) => {
       return [
         ...state,
         {
-          hours: action.payload.hours,
-          minutes: action.payload.minutes
+          title: action.payload.title,
+          startTime: action.payload.startTime,
+          endTime: action.payload.endTime,
+          step: action.payload.step
         }
       ];
 

@@ -1,31 +1,43 @@
 import React from "react";
-import Scheduler from "./Scheduler";
+import { connect } from "react-redux";
+import { openModal } from "../actions";
 import CalendarModal from "./CalendarModal";
+import EventList from "./EventList";
 
 class Dashboard extends React.Component {
-  state = {
-    calendars: [],
-    openModal: false
-  };
-
   render() {
-    const onOpenCalendar = () => {
-      this.setState({ openModal: true });
-    };
-
     return (
       <div>
-        <button className="ui button primary" onClick={onOpenCalendar}>
+        <button className="ui button primary" onClick={this.props.openModal}>
           Add a calendar
         </button>
+        <div className="ui hidden divider" />
 
-        {this.state.calendars.map((i, k) => {
-          return <Scheduler key={k} />;
-        })}
-        <CalendarModal isOpen={this.state.openModal} />
+        <div className="ui divided grid">
+          {this.props.plannedEvents.map((i, k) => {
+            return (
+              <EventList
+                title={i.title}
+                startTime={i.startTime}
+                endTime={i.endTime}
+                step={i.step}
+                key={k}
+                itemKey={k}
+              />
+            );
+          })}
+        </div>
+        <CalendarModal />
       </div>
     );
   }
 }
 
-export default Dashboard;
+const mapStateToProps = state => {
+  return { plannedEvents: state.occupied };
+};
+
+export default connect(
+  mapStateToProps,
+  { openModal }
+)(Dashboard);

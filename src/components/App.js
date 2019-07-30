@@ -1,4 +1,5 @@
 import React from "react";
+import "../App.css";
 import Scheduler from "./Scheduler";
 import Navbar from "./Navbar";
 import Dashboard from "./Dashboard";
