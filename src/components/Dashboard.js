@@ -4,24 +4,25 @@ import CalendarModal from "./CalendarModal";
 
 class Dashboard extends React.Component {
   state = {
-    calendars: []
+    calendars: [],
+    openModal: false
   };
 
   render() {
-    const onAddCalendar = () => {
-      this.setState({ calendars: [...this.state.calendars, 1] });
+    const onOpenCalendar = () => {
+      this.setState({ openModal: true });
     };
 
     return (
       <div>
-        <button className="primary button" onClick={onAddCalendar}>
+        <button className="ui button primary" onClick={onOpenCalendar}>
           Add a calendar
         </button>
 
         {this.state.calendars.map((i, k) => {
           return <Scheduler key={k} />;
         })}
-        <CalendarModal isOpen={true} />
+        <CalendarModal isOpen={this.state.openModal} />
       </div>
     );
   }
