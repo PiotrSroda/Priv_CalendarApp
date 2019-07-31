@@ -69,12 +69,14 @@ class CalendarModal extends React.Component {
           />
           <input
             type="time"
+            step="1800"
             id="startTime"
             onChange={e => this.setState({ startTime: e.target.value })}
           />
           <input
             type="time"
             id="endTime"
+            step="1800"
             onChange={e => this.setState({ endTime: e.target.value })}
           />
           <select
