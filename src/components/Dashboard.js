@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
         </button>
         <div className="ui hidden divider" />
 
-        <div className="ui divided grid">
+        <div className="ui divided">
           {this.props.plannedEvents.map((i, k) => {
             return (
               <EventList
@@ -21,6 +21,7 @@ class Dashboard extends React.Component {
                 startTime={i.startTime}
                 endTime={i.endTime}
                 step={i.step}
+                day={i.day}
                 key={k}
                 itemKey={k}
               />

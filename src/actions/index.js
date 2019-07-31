@@ -2,13 +2,14 @@ export const ADD_TIME = "ADD_TIME";
 export const OPEN_MODAL = "OPEN_MODAL";
 export const HIDE_MODAL = "HIDE_MODAL";
 
-export const addTime = (title, startTime, endTime, step) => ({
+export const addTime = (title, startTime, endTime, step, day) => ({
   type: ADD_TIME,
   payload: {
     title,
     startTime,
     endTime,
-    step
+    step,
+    day
   }
 });
 

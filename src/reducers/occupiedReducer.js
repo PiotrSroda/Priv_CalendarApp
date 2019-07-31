@@ -9,7 +9,8 @@ export const occupiedReducer = (state = [], action) => {
           title: action.payload.title,
           startTime: action.payload.startTime,
           endTime: action.payload.endTime,
-          step: action.payload.step
+          step: action.payload.step,
+          day: action.payload.day
         }
       ];
 
