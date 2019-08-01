@@ -14,7 +14,7 @@ const CurrentDay = props => {
   let time = [];
   let startHour = props.startHour * 60;
   let endHour = props.endHour * 60;
-  let step = props.step;
+  let step = parseInt(props.step);
 
   for (let i = startHour; i <= endHour; i += step) {
     let minutes = moment(props.day)
@@ -22,6 +22,7 @@ const CurrentDay = props => {
       .format("LT");
     time = [...time, minutes];
     console.log(occupiedHour);
+    console.log(step);
   }
 
   const renderTime = time.map((t, k) => {

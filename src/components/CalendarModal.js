@@ -36,6 +36,13 @@ class CalendarModal extends React.Component {
     this.setState({ day: e });
   }
 
+  handleOnChangeTimes(e) {
+    const {
+      target: { id, value }
+    } = e;
+    this.setState({ [id]: value });
+  }
+
   render() {
     return (
       <ReactModal
@@ -65,24 +72,22 @@ class CalendarModal extends React.Component {
             type="text"
             id="title"
             placeholder="Title"
-            onChange={e => this.setState({ title: e.target.value })}
+            onChange={e => this.handleOnChangeTimes(e)}
           />
           <input
             type="time"
-            step="1800"
             id="startTime"
-            onChange={e => this.setState({ startTime: e.target.value })}
+            onChange={e => this.handleOnChangeTimes(e)}
           />
           <input
             type="time"
             id="endTime"
-            step="1800"
-            onChange={e => this.setState({ endTime: e.target.value })}
+            onChange={e => this.handleOnChangeTimes(e)}
           />
           <select
             name="step"
             id="step"
-            onChange={e => this.setState({ step: e.target.value })}
+            onChange={e => this.handleOnChangeTimes(e)}
           >
             <option value="" selected disabled hidden>
               Length of meeting
