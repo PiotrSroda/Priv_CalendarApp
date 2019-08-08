@@ -67,6 +67,7 @@ class CalendarModal extends React.Component {
             X
           </button>
         </div>
+        <div className="ui hidden divider" />
         <form className="ui form" onSubmit={this.handleOnSubmit}>
           <input
             type="text"
@@ -74,22 +75,26 @@ class CalendarModal extends React.Component {
             placeholder="Title"
             onChange={e => this.handleOnChangeTimes(e)}
           />
+
           <input
             type="time"
             id="startTime"
             onChange={e => this.handleOnChangeTimes(e)}
           />
+
           <input
             type="time"
             id="endTime"
             onChange={e => this.handleOnChangeTimes(e)}
           />
+
           <select
             name="step"
             id="step"
             onChange={e => this.handleOnChangeTimes(e)}
+            defaultValue="0"
           >
-            <option value="" selected disabled hidden>
+            <option value="0" disabled hidden>
               Length of meeting
             </option>
             <option value="15">15 minutes</option>
@@ -98,8 +103,12 @@ class CalendarModal extends React.Component {
             <option value="60">1 hour</option>
             <option value="90">1,5 hours</option>
           </select>
+          <div className="ui hidden divider" />
           <Cal onClickDay={e => this.handleOnChangeDate(e)} />
-          <button className="ui button primary">SUBMIT ME </button>
+          <div className="ui hidden divider" />
+          <div className="button-container">
+            <button className="ui button primary">SUBMIT ME </button>
+          </div>
         </form>
       </ReactModal>
     );

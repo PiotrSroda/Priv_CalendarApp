@@ -1,4 +1,4 @@
-import { OPEN_MODAL, HIDE_MODAL } from "../actions";
+import { OPEN_MODAL, HIDE_MODAL } from "../actions/types";
 
 export const showModalReducer = (state = false, action) => {
   switch (action.type) {

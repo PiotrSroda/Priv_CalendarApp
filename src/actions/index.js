@@ -1,6 +1,4 @@
-export const ADD_TIME = "ADD_TIME";
-export const OPEN_MODAL = "OPEN_MODAL";
-export const HIDE_MODAL = "HIDE_MODAL";
+import { ADD_TIME, ADD_MEETING, OPEN_MODAL, HIDE_MODAL } from "./types";
 
 export const addTime = (title, startTime, endTime, step, day) => ({
   type: ADD_TIME,
@@ -10,6 +8,14 @@ export const addTime = (title, startTime, endTime, step, day) => ({
     endTime,
     step,
     day
+  }
+});
+
+export const addMeeting = (day, time) => ({
+  type: ADD_MEETING,
+  payload: {
+    day,
+    time
   }
 });
 
