@@ -28,7 +28,6 @@ class CalendarModal extends React.Component {
       this.state.step,
       this.state.day
     );
-    console.log(this.state);
     // this.props.hideModal();
   }
 

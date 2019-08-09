@@ -7,7 +7,8 @@ import _ from "lodash";
 class EventList extends React.Component {
   state = {
     eventDay: this.props.day,
-    eventTime: this.props.time
+    eventTime: this.props.time,
+    plannedTimes: this.props.meetings[this.props.day].time
   };
   render() {
     let thisDay = moment(this.props.day).format("dddd, MMMM Do YYYY");
@@ -24,6 +25,11 @@ class EventList extends React.Component {
     }
 
     const renderTime = wholeDay.map((t, k) => {
+      let transformedMinutes = t => {};
+
+      if (this.state.plannedTimes.includes({ t })) {
+        return <div>KLOC</div>;
+      }
       return (
         <div
           className="three wide column"
@@ -59,7 +65,7 @@ class EventList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { occupied: state.occupied };
+  return { occupied: state.occupied, meetings: state.meetings };
 };
 
 export default connect(

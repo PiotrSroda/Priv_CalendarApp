@@ -12,7 +12,6 @@ class Dashboard extends React.Component {
           Add a calendar
         </button>
         <div className="ui hidden divider" />
-
         <div className="ui divided">
           {this.props.plannedEvents.map((i, k) => {
             return (

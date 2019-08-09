@@ -7,7 +7,8 @@ export const addTime = (title, startTime, endTime, step, day) => ({
     startTime,
     endTime,
     step,
-    day
+    day,
+    time: []
   }
 });
 
