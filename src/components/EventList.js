@@ -24,11 +24,18 @@ class EventList extends React.Component {
       wholeDay = [...wholeDay, minutes];
     }
 
-    const renderTime = wholeDay.map((t, k) => {
-      let transformedMinutes = t => {};
+    const planMeeting = t => {
+      this.props.addMeeting(this.state.eventDay, t);
+    };
 
-      if (this.state.plannedTimes.includes({ t })) {
-        return <div>KLOC</div>;
+    const renderTime = wholeDay.map((t, k) => {
+      let plannedMeeting = this.props.meetings[this.props.day].time;
+      if (plannedMeeting.includes(t)) {
+        return (
+          <div className="three wide column" key={k}>
+            <p className="ui large button disabled">{t}</p>
+          </div>
+        );
       }
       return (
         <div
@@ -40,9 +47,7 @@ class EventList extends React.Component {
         </div>
       );
     });
-    const planMeeting = t => {
-      this.props.addMeeting(this.state.eventDay, t);
-    };
+
     return (
       <div className="ui segment grid" key={this.props.itemKey}>
         <div className="ui container">

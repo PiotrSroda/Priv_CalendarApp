@@ -1,31 +1,22 @@
 import React from "react";
-import Cal from "react-calendar";
-import CurrentDay from "./Currentday";
-import "../App.css";
+import { connect } from "react-redux";
 
-class Scheduler extends React.Component {
-  state = {
-    day: null
+const Scheduler = props => {
+  console.log(props.meetings);
+  const renderMeetings = () => {
+    props.meetings.map((t, k) => {
+      return <div>{t}</div>;
+    });
   };
 
-  onClick = day => this.setState({ day });
+  return <div>{renderMeetings()}</div>;
+};
 
-  render() {
-    return (
-      <div>
-        <div>
-          <Cal value={this.state.day} onClickDay={this.onClick} />
-          <CurrentDay
-            day={this.state.day}
-            startHour={9}
-            endHour={22}
-            step={15}
-            occupied={15}
-          />
-        </div>
-      </div>
-    );
-  }
-}
+const mapStateToProps = state => {
+  return { meetings: state.meetings };
+};
 
-export default Scheduler;
+export default connect(
+  mapStateToProps,
+  null
+)(Scheduler);

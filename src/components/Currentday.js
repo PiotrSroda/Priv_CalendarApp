@@ -21,8 +21,6 @@ const CurrentDay = props => {
       .add(i, "minutes")
       .format("LT");
     time = [...time, minutes];
-    console.log(occupiedHour);
-    console.log(step);
   }
 
   const renderTime = time.map((t, k) => {

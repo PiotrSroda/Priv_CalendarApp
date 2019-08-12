@@ -8,7 +8,7 @@ const Navbar = () => {
         Home
       </Link>
       <Link to="/calendar" className="item">
-        Calendar
+        Scheduled Events
       </Link>
       <Link to="/dashboard" className="item">
         Dashboard
