@@ -2,35 +2,42 @@ import React from "react";
 import { connect } from "react-redux";
 import { addMeeting } from "../actions";
 import moment from "moment";
-import _ from "lodash";
+import timeRangeCalculator from "./methods/timeRangeCalculator";
 
 class EventList extends React.Component {
   state = {
     eventDay: this.props.day,
     eventTime: this.props.time,
-    plannedTimes: this.props.meetings[this.props.day].time
+    plannedTimes: []
   };
+  componentDidMount() {
+    this.setState({
+      plannedTimes: this.props.meetings[this.props.day].time
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.meetings !== prevProps.meetings) {
+      this.setState({
+        plannedTimes: this.props.meetings[this.props.day].time
+      });
+    }
+  }
+
   render() {
     let thisDay = moment(this.props.day).format("dddd, MMMM Do YYYY");
-    let wholeDay = [];
-    let startMinute = moment.duration(this.props.startTime).asMinutes();
-    let endMinute = moment.duration(this.props.endTime).asMinutes();
-    let step = Number.parseInt(this.props.step, "base");
-
-    for (let i = startMinute; i <= endMinute; i += step) {
-      let minutes = moment(this.props.day)
-        .add(i, "minutes")
-        .format("LT");
-      wholeDay = [...wholeDay, minutes];
-    }
-
+    let plannedDay = timeRangeCalculator(
+      this.props.day,
+      this.props.startTime,
+      this.props.endTime,
+      this.props.step
+    );
     const planMeeting = t => {
       this.props.addMeeting(this.state.eventDay, t);
     };
 
-    const renderTime = wholeDay.map((t, k) => {
-      let plannedMeeting = this.props.meetings[this.props.day].time;
-      if (plannedMeeting.includes(t)) {
+    const renderTime = plannedDay.map((t, k) => {
+      if (this.state.plannedTimes.includes(t)) {
         return (
           <div className="three wide column" key={k}>
             <p className="ui large button disabled">{t}</p>
