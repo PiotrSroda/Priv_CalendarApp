@@ -11,9 +11,9 @@ class CalendarModal extends React.Component {
     this.state = {
       title: null,
       day: null,
-      step: null,
-      startTime: null,
-      endTime: null
+      step: 15,
+      startTime: "09:00",
+      endTime: "18:00"
     };
 
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
@@ -21,14 +21,23 @@ class CalendarModal extends React.Component {
 
   handleOnSubmit(e) {
     e.preventDefault();
-    this.props.addTime(
-      this.state.title,
-      this.state.startTime,
-      this.state.endTime,
-      this.state.step,
-      this.state.day
-    );
-    this.props.hideModal();
+    console.log(this.state);
+    if (this.state.startTime > this.state.endTime) {
+      alert(
+        "The meeting cannot start after the end time - please choose the correct start time"
+      );
+    } else if (this.state.day === null) {
+      alert("Please choose a day");
+    } else {
+      this.props.addTime(
+        this.state.title,
+        this.state.startTime,
+        this.state.endTime,
+        this.state.step,
+        this.state.day
+      );
+      this.props.hideModal();
+    }
   }
 
   handleOnChangeDate(e) {
@@ -67,35 +76,47 @@ class CalendarModal extends React.Component {
           </button>
         </div>
         <div className="ui hidden divider" />
-        <form className="ui form" onSubmit={this.handleOnSubmit}>
+        <form className="ui form container" onSubmit={this.handleOnSubmit}>
+          <label className="ui label">Please name the event</label>
           <input
             type="text"
             id="title"
             placeholder="Title"
             onChange={e => this.handleOnChangeTimes(e)}
+            required
+            onInvalid={() => {
+              alert("srak");
+            }}
           />
 
+          <div className="ui hidden divider" />
+          <label className="ui label">Please choose the start time</label>
           <input
             type="time"
             id="startTime"
             onChange={e => this.handleOnChangeTimes(e)}
+            required
+            step="1800"
+            defaultValue="09:00"
           />
-
+          <div className="ui hidden divider" />
+          <label className="ui label">Please choose the end time</label>
           <input
             type="time"
             id="endTime"
             onChange={e => this.handleOnChangeTimes(e)}
+            required
+            step="1800"
+            defaultValue="18:00"
           />
-
+          <div className="ui hidden divider" />
+          <label className="ui label">Please choose the meeting length</label>
           <select
             name="step"
             id="step"
             onChange={e => this.handleOnChangeTimes(e)}
-            defaultValue="0"
+            required
           >
-            <option value="0" disabled hidden>
-              Length of meeting
-            </option>
             <option value="15">15 minutes</option>
             <option value="30">30 minutes</option>
             <option value="45">45 minutes</option>
@@ -103,6 +124,7 @@ class CalendarModal extends React.Component {
             <option value="90">1,5 hours</option>
           </select>
           <div className="ui hidden divider" />
+          <label className="ui label">Please choose the date</label>
           <Cal onClickDay={e => this.handleOnChangeDate(e)} />
           <div className="ui hidden divider" />
           <div className="button-container">
